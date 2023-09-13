@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+         <title>GOFLIX</title>        
+    <link rel="icon" href="img/icone.png">
+        
+     <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+     <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+     <link rel="stylesheet" href="style/owl/owl.carousel.min.css">
+     <link rel="stylesheet" href="style/owl/owl.theme.default.min.css">
+ 
+     <!-- HTML5Shiv -->
+     <if lt IE 9>
+       <script src="js/html5shiv.min.js"></script>
+     <endif>
+   <!-- Estilo customizado -->
+  <link rel="stylesheet" type="text/css" href="style/estilo.css">
+
+
+
+
+
+      <!--Video scripts-->
+      <script src="asset/hls.js/hls.js@latest"></script>
+            <!-- Or if you want a more recent canary version -->
+            <!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
+        
+
+          <!--video modal-->
+          <link rel="stylesheet" href="asset/css/remodal.min.css">
+          <link rel="stylesheet" href="asset/css/remodal-default-theme.min.css">
+
+          <script>
+              var player = videojs("my-video", {
+                autoplay: "muted",
+                fluid: true
+              });
+              
+              $(document).on("opened", ".remodal", function() {
+                console.log("Modal is opened");
+                player.play("muted");
+                player.muted(false); // unmute the volume
+              });
+              
+              $(document).on("closing", ".remodal", function(e) {
+                player.pause();
+                player.play("pause");
+                player.muted(true); // nmute the volume
+                /* uncomment this if you want the video time to be reset when modal is close 
+                  player.currentTime('0');*/
+              });
+
+        </script>
+
+
+        <style>
+
+          
+          .remodal-close {
+              }
+              .remodal {
+                max-width: 1250px;
+                background: transparent !important;
+              }
+
+              @media only screen and (max-width: 600px) {
+                .remodal {
+                  padding: 2px;
+                }
+                .remodal-close {
+                  top: -31px;
+                  left:-9px;
+                }
+                
+              }
+              .remodal, .remodal-wrapper, video {
+                width: 100vw;
+                max-height: 100vh;
+              }
+        </style>
+
+
+        <script>
+            var video = document.getElementById('video');
+            var videoSrc = 'video';
+                if (Hls.isSupported()) {
+                    var hls = new Hls();
+                    hls.loadSource(videoSrc);
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play();
+                });
+            }
+            // hls.js is not supported on platforms that do not have Media Source
+            // Extensions (MSE) enabled.
+            //
+            // When the browser has built-in HLS support (check using `canPlayType`),
+            // we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video
+            // element through the `src` property. This is using the built-in support
+            // of the plain video element, without using hls.js.
+            //
+            // Note: it would be more normal to wait on the 'canplay' event below however
+            // on Safari (where you are most likely to find built-in HLS support) the
+            // video.src URL must be on the user-driven white-list before a 'canplay'
+            // event will be emitted; the last video event that can be reliably
+            // listened-for when the URL is not on the white-list is 'loadedmetadata'.
+                else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    video.src = videoSrc;
+                    video.addEventListener('loadedmetadata', function() {
+                    video.play();
+                });
+            }
+        </script>
+
+        <script src="asset/hover/jquery.hoverplay.js"></script>
+
+        <script src="asset/js/jquery-3.3.1.slim.min.js" 
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+            crossorigin="anonymous">
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>   
+   
+  
+
+<nav class="navbar navbar-dark bg-dark fixed-top"> <!-- Movies navegação-->
+
+        <button type="button" class="navbar-toggler d-lg-none">
+            <img src="img/menu.png" alt="Menu"> </button>
+
+
+        <a href="#" class="navbar-brand sidebar-open flex-grow-1">
+        <img src="img/logo.png" alt="Netflix" class="my-1 mx-2">
+        </a>
+
+
+        <ul class="nav text-white d-none d-lg-flex">
+            <li class="nav-item">
+            <a href="#
+             " class="nav-link text-reset active d-xl-none">Browse</a>
+              </li>
+             <li class="nav-item">
+              <a href="#
+                    " class="nav-link text-reset  d-xl-none">Infantil</a>
+                </li>
+                <li class="nav-item">
+              <a href="#
+                    " class="nav-link text-reset  d-xl-flex active">Movies</a>
+                </li>
+                  <li class="nav-item">
+              <a href="#
+                    " class="nav-link text-reset  d-xl-flex">Series</a>
+                </li>
+                  <li class="nav-item">
+              <a href="#
+                    " class="nav-link text-reset  d-xl-flex">Animation</a>
+                </li>
+                  <li class="nav-item">
+              <a href="#
+                    " class="nav-link text-reset  d-xl-flex">Recently added</a>
+                      <li class="nav-item">
+              <a href="#
+                    " class="nav-link text-reset  d-xl-flex">My list</a>
+                </li>
+                </li>
+
+         </ul>
+
+
+        <form class="form-inline">
+            <input type="search" class="form-control" placeholder="search">
+        </form> 
+
+
+
+           <div class="media text-white p-2 d-none d-lg-flex">
+                <img src="img/avatar.png" alt="Avatar" class="mr-2">
+                <div class="media-body">
+                    <p class="h6 m-0">User</p>
+                     
+            </div>                
+        </div>
+
+        <ul class="list-unstyled font-weight-bold sidebar">
+            <li class="media media-avatar">
+                <img src="img/avatar.png" alt="Avatar" class="mr-2">
+                <div class="media-body">
+                    <p class="h6 m-0">User</p>
+                    <small>switch profile</small>
+        </div>                
+    
+
+            </li>
+            <li class="divider"></li>
+                <li><a href="" class="text-reset">Movies</a></li>
+                <li><a href="" class="text-reset">My list</a></li>
+                <li><a href="" class="text-reset">Adventure action series</a></li>
+                <li><a href="" class="text-reset"></a></li>
+                <li><a href="" class="text-reset">Action and adventure</a></li>
+                <li><a href="" class="text-reset">Series teen</a></li>
+                <li><a href="" class="text-reset">Animation americans</a></li>
+                <li><a href="" class="text-reset">Anime</a>
+            </li>
+        </ul>          
+</nav>  <!-- fim navegação-->
+
+
+    <div class="container-fluid">   <!-- Movies container fluid-->         
+      <div class="row">
+        <div class="col-12 full-banner text-white">                     
+          <div class="p-4 d-flex justify-content-start align-items-center h-100">
+            <div>
+              <h1 class="h3 d-none d-md-none md-nowrap d-sm-flex d-xl-flex d-lg-flex">
+              <img class="logo d-none d-md-block" src="img/sw.png">                    
+              </h1>
+              
+              <h1 class="d-md-flex d-none d-sm-none d-xl-none d-lg-none">
+                F9
+              </h1>                                       
+              <small class="d-flex my-2 justfify-content-start"> 
+                        <span class="mr-3">2021</span>
+                        <span class="mr-3">|</span>
+                        <span class="mr-3 L">PG-13</span>
+                         <span class="mr-3">|</span>
+                        <span class="mr-3">143 min</span>
+              </small>
+                    <p class="d-none d-lg-block text-white">Dom and the crew must take on an international terrorist who turns out to be Dom and Mia's estranged brother. </p>
+                    <a href="#modal1" class="video controls mr-3 pb-4 btn text-uppercase font-weight-bold"><i class="mr-2 fas fa-play"></i>Watch</a>
+                    
+          </div>
+        </div>
+      </div> 
+     </div>
+     </div><!-- fim container fluid-->           
+
+
+
+
+
+
+
+
+
+
+
+
+
+                              
+    <div class="p-3  list-titles"><!-- Movies continuar como User-->
+      <h2 class="h4"> 
+      Latest English</h2>
+    </div><!-- fim continuar como User-->
+
+    <div class="carrosel-Animation d-flex flex-nowrap overflow-hidden"><!-- Movies carrosel-->
+        <div class="owl-carousel owl-theme"><!--Movies carrosel tema-->
+                         
+
+                          <div class="container">
+                            <div class="box">
+                              <div class="imgbox">
+                                <a href="#"><img src="img/cover4.jpg" alt=""></a> 
+                               </div>
+                               <div class="content">
+                                  <div>
+                                    <a href="#modal2" class="video controls mr-3 pb-4 btn text-uppercase font-weight-bold"><i class="mr-2 fas fa-play"></i>Watch</a>
+                                    <h2>The Suicide Squad 2021</h2>
+                                    <p>
+                                      The government sends the most dangerous supervillains in the world -- Bloodsport, Peacemaker, King Shark, Harley Quinn and others. 
+                                    </p>
+                                  </div>        
+                                </div>
+                            </div>
+                          </div>
+
+                          <!------excel data detch-->
+                          <div class="container"> <div class="box"> <div class="imgbox"> <a href="#"><img src="https://m.media-amazon.com/images/M/MV5BY2ViNzRmNDQtNWFkNy00ZDQ4LWFkNDAtN2ViOTgyY2E5NGRhXkEyXkFqcGdeQXVyOTg4MDYyNw@@._V1_FMjpg_UX1000_.jpg" alt=""></a> </div> <div class="content"> <div> <a href="#modal3" class="video controls mr-3 pb-4 btn text-uppercase font-weight-bold"><i class="mr-2 fas fa-play"></i>Watch</a> <h2>Notorious Nick</h2> <p>Hollywood Movies 2021</p> </div> </div> </div> </div>
+                          <div class="container"> <div class="box"> <div class="imgbox"> <a href="#"><img src="https://m.media-amazon.com/images/M/MV5BNGNkZmJiZTAtY2M3MC00ZTNjLThkYmQtNmMxMTg3ZTJlNDA4XkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_FMjpg_UX1000_.jpg" alt=""></a> </div> <div class="content"> <div> <a href="#modal4" class="video controls mr-3 pb-4 btn text-uppercase font-weight-bold"><i class="mr-2 fas fa-play"></i>Watch</a> <h2>The Last Mercenary</h2> <p>Hollywood Movies 2021</p> </div> </div> </div> </div>
+                          <div class="container"> <div class="box"> <div class="imgbox"> <a href="#"><img src="https://lumiere-a.akamaihd.net/v1/images/p_junglecruise_disneyplus_21363_f7fdd75b.jpeg" alt=""></a> </div> <div class="content"> <div> <a href="#modal5" class="video controls mr-3 pb-4 btn text-uppercase font-weight-bold"><i class="mr-2 fas fa-play"></i>Watch</a> <h2>Jungle Cruise</h2> <p>Hollywood Movies 2021</p> </div> </div> </div> </div>
+                          <div class="container"> <div class="box"> <div class="imgbox"> <a href="#"><img src="https://m.media-amazon.com/images/M/MV5BMjI0NmFkYzEtNzU2YS00NTg5LWIwYmMtNmQ1MTU0OGJjOTMxXkEyXkFqcGdeQXVyMjMxOTE0ODA@._V1_FMjpg_UX1000_.jpg" alt=""></a> </div> <div class="content"> <div> <a href="#modal6" class="video controls mr-3 pb-4 btn text-uppercase font-weight-bold"><i class="mr-2 fas fa-play"></i>Watch</a> <h2>F9 Tge Fast Saga 2021</h2> <p>Hollywood Movies 2021</p> </div> </div> </div> </div>
+                          <div class="container"> <div class="box"> <div class="imgbox"> <a href="#"><img src="https://pisces.bbystatic.com/image2/BestBuy_US/images/products/3526/35263723_sa.jpg;maxHeight=640;maxWidth=550" alt=""></a> </div> <div class="content"> <div> <a href="#modal7" class="video controls mr-3 pb-4 btn text-uppercase font-weight-bold"><i class="mr-2 fas fa-play"></i>Watch</a> <h2>Midnight in the switchgrass 2021</h2> <p>Hollywood Movies 2021</p> </div> </div> </div> </div>
+                          <div class="container"> <div class="box"> <div class="imgbox"> <a href="#"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Twist_2021.jpg/220px-Twist_2021.jpg" alt=""></a> </div> <div class="content"> <div> <a href="#modal8" class="video controls mr-3 pb-4 btn text-uppercase font-weight-bold"><i class="mr-2 fas fa-play"></i>Watch</a> <h2>Twist.2021.</h2> <p>Hollywood Movies 2021</p> </div> </div> </div> </div>
+                          <div class="container"> <div class="box"> <div class="imgbox"> <a href="#"><img src="https://upload.wikimedia.org/wikipedia/en/1/11/Gunpowder_Milkshake_%28poster%29.jpeg" alt=""></a> </div> <div class="content"> <div> <a href="#modal9" class="video controls mr-3 pb-4 btn text-uppercase font-weight-bold"><i class="mr-2 fas fa-play"></i>Watch</a> <h2>Gunpowder.Milkshake</h2> <p>Hollywood Movies 2021</p> </div> </div> </div> </div>
+                          <div class="container"> <div class="box"> <div class="imgbox"> <a href="#"><img src="https://edunewsnetwork.files.wordpress.com/2021/07/images28529-11.jpeg" alt=""></a> </div> <div class="content"> <div> <a href="#modal10" class="video controls mr-3 pb-4 btn text-uppercase font-weight-bold"><i class="mr-2 fas fa-play"></i>Watch</a> <h2>Black Widow 2021</h2> <p>Hollywood Movies 2021</p> </div> </div> </div> </div>
+                          <div class="container"> <div class="box"> <div class="imgbox"> <a href="#"><img src="https://m.media-amazon.com/images/M/MV5BNTI2YTI0MWEtNGQ4OS00ODIzLWE1MWEtZGJiN2E3ZmM1OWI1XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg" alt=""></a> </div> <div class="content"> <div> <a href="#modal11" class="video controls mr-3 pb-4 btn text-uppercase font-weight-bold"><i class="mr-2 fas fa-play"></i>Watch</a> <h2>The.Tomorrow.War.</h2> <p>Hollywood Movies 2021</p> </div> </div> </div> </div>
+                          <div class="container"> <div class="box"> <div class="imgbox"> <a href="#"><img src="https://pics.filmaffinity.com/The_Conjuring_The_Devil_Made_Me_Do_It-717865405-large.jpg" alt=""></a> </div> <div class="content"> <div> <a href="#modal12" class="video controls mr-3 pb-4 btn text-uppercase font-weight-bold"><i class="mr-2 fas fa-play"></i>Watch</a> <h2>The.Conjuring</h2> <p>Hollywood Movies 2021</p> </div> </div> </div> </div>
+                          <div class="container"> <div class="box"> <div class="imgbox"> <a href="#"><img src="https://static.metacritic.com/images/products/movies/2/ff18a25678e24961eee663ae7cb8ca42.jpg" alt=""></a> </div> <div class="content"> <div> <a href="#modal13" class="video controls mr-3 pb-4 btn text-uppercase font-weight-bold"><i class="mr-2 fas fa-play"></i>Watch</a> <h2>Army.of.the.Dead</h2> <p>Hollywood Movies 2021</p> </div> </div> </div> </div>
+
+      </div><!--fim carrosel tema-->
+          </div><!-- fim carrosel-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  <div class="p-3  list-titles"><!-- Movies ultimos lançamentos-->
+                    <h2 class="h4"> 
+                    Latest Hindi</h2>
+                  </div><!-- ultimos lançamentos-->
+
+                  <div class="carrosel-Animation d-flex flex-nowrap overflow-hidden"><!-- Movies carrosel-->
+                      <div class="owl-carousel owl-theme"><!--Movies carrosel tema-->
+                         
+
+
+                          <div class="container"> <!-- Movies container imagens-->
+                            <div class="box"> <!-- Movies box-->
+
+                              <div class="imgbox">   <!-- Movies imgbox-->
+                                <a href="#"><img src="img/banner-1.jpg" alt=""></a> 
+                               </div><!-- fim imgbox-->
+
+                               <div class="content"><!-- Movies content-->
+                                  <div>
+                                    <h2>A Anatomia de Grey</h2>
+                                    <p>
+                                      A série médica de enorme sucesso foca em um grupo de jovens médicos do Hospital Grace Mercy West, de Seattle, que começaram a carreira na própria instituição como residentes.
+                                    </p>
+                                  </div>        
+                                </div><!-- fim content-->
+                            </div>  <!-- fim box-->   
+                          </div><!-- fim container imagens-->
+
+                          <div class="container"> <!-- Movies container imagens-->
+                            <div class="box"> <!-- Movies box-->
+
+                              <div class="imgbox">   <!-- Movies imgbox-->
+                                <a href="#"><img src="img/banner-2.jpg" alt=""></a> 
+                               </div><!-- fim imgbox-->
+
+                               <div class="content"><!-- Movies content-->
+                                  <div>
+                                    <h2>The Walking Dead</h2>
+                                    <p>
+                                      Baseado na história em quadrinhos escrita por Robert Kirkman, este drama potente e visceral retrata a vida nos Estados Unidos pós-apocalíptico. Um grupo de sobreviventes, liderado pelo policial Rick Grimes, segue viajando em search de uma nova moradia segura e distante dos mortos-vivos.  
+                                    </p>
+                                  </div>        
+                                </div><!-- fim content-->
+
+                            </div>  <!-- fim box-->   
+                          </div><!-- fim container imagens-->
+
+                          <div class="container"> <!-- Movies container imagens-->
+                            <div class="box"> <!-- Movies box-->
+
+                              <div class="imgbox">   <!-- Movies imgbox-->
+                                <a href="#"><img src="img/banner-3.jpg" alt=""></a> 
+                               </div><!-- fim imgbox-->
+
+                               <div class="content"><!-- Movies content-->
+                                  <div>
+                                    <h2>House of Cards</h2>
+                                    <p>
+                                       O congressista Francis Underwood e sua mulher, Claire, fazem de tudo para conquistar seus objetivos, não importa o que aconteça. Um mundo político recheado de ganância, corrupção e luxúria na capital Washington. 
+                                    </p>
+                                  </div>        
+                                </div><!-- fim content-->
+
+                            </div>  <!-- fim box-->   
+                          </div><!-- fim container imagens-->
+
+                           
+
+
+                          <div class="container"> <!-- Movies container imagens-->
+                            <div class="box"> <!-- Movies box-->
+
+                              <div class="imgbox">   <!-- Movies imgbox-->
+                                <a href="#"><img src="img/banner-4.jpg" alt=""></a> 
+                               </div><!-- fim imgbox-->
+
+                               <div class="content"><!-- Movies content-->
+                                  <div>
+                                    <h2>Pokémon: Detetive Pikachu</h2>
+                                    <p>
+                                      Um jovem une forças com o detetive Pikachu para desvendar o mistério por trás do desaparecimento de seu pai. Perseguindo pistas pelas ruas de Ryme City, a dupla dinâmica logo descobre uma trama desonesta que representa uma ameaça ao universo Pokémon.
+                                    </p>
+                                  </div>        
+                                </div><!-- fim content-->
+
+                            </div>  <!-- fim box-->   
+                          </div><!-- fim container imagens-->
+
+                             <div class="container"> <!-- Movies container imagens-->
+                            <div class="box"> <!-- Movies box-->
+
+                              <div class="imgbox">   <!-- Movies imgbox-->
+                                <a href="#"><img src="img/banner-5.jpg" alt=""></a> 
+                               </div><!-- fim imgbox-->
+
+                               <div class="content"><!-- Movies content-->
+                                  <div>
+                                    <h2>Star Wars: Episódio IX</h2>
+                                    <p>
+                                      Com o retorno do Imperador Palpatine, a Resistência toma a frente da batalha. Treinando para ser uma completa Jedi, Rey se encontra em conflito com passado e futuro, e teme pelas respostas que pode conseguir com Kylo Ren. 
+                                    </p>
+                                  </div>        
+                                </div><!-- fim content-->
+
+                            </div>  <!-- fim box-->   
+                          </div><!-- fim container imagens-->
+
+                           <div class="container"> <!-- Movies container imagens-->
+                            <div class="box"> <!-- Movies box-->
+
+                              <div class="imgbox">   <!-- Movies imgbox-->
+                                <a href="#"><img src="img/banner-6.jpg" alt=""></a> 
+                               </div><!-- fim imgbox-->
+
+                               <div class="content"><!-- Movies content-->
+                                  <div>
+                                    <h2>The Flash</h2>
+                                    <p>
+                                     Acompanhe as aventuras do homem mais veloz do planeta, o cientista da Central City Police Barry Allen, que após um trágico acidente adquire o poder da velocidade. 
+                                    </p>
+                                  </div>        
+                                </div><!-- fim content-->
+
+                            </div>  <!-- fim box-->   
+                          </div><!-- fim container imagens-->
+
+                            <div class="container"> <!-- Movies container imagens-->
+                            <div class="box"> <!-- Movies box-->
+
+                              <div class="imgbox">   <!-- Movies imgbox-->
+                                <a href="#"><img src="img/banner-7.jpg" alt=""></a> 
+                               </div><!-- fim imgbox-->
+
+                               <div class="content"><!-- Movies content-->
+                                  <div>
+                                    <h2>Anne white an E</h2>
+                                    <p>
+                                      Neste filme baseado no livro "Anne de Green Gables", uma impetuosa órfã é adotada por engano por um casal de irmãos solteirões do interior. Assista o quanto quiser. Premiada no Emmy, a roteirista e produtora Moira Walley-Beckett ("Breaking Bad") renova este clássico da língua inglesa. 
+                                    </p>
+                                  </div>        
+                                </div><!-- fim content-->
+
+                            </div>  <!-- fim box-->   
+                          </div><!-- fim container imagens-->
+
+                                                    <div class="container"> <!-- Movies container imagens-->
+                            <div class="box"> <!-- Movies box-->
+
+                              <div class="imgbox">   <!-- Movies imgbox-->
+                                <a href="#"><img src="img/banner-8.jpg" alt=""></a> 
+                               </div><!-- fim imgbox-->
+
+                               <div class="content"><!-- Movies content-->
+                                  <div>
+                                    <h2>Friends</h2>
+                                    <p>
+                                      Seis amigos, três homens e três mulheres, enfrentam a vida e os amores em Nova York e adoram passar o tempo livre na cafeteria Central Perk. 
+                                    </p>
+                                  </div>        
+                                </div><!-- fim content-->
+
+                            </div>  <!-- fim box-->   
+                          </div><!-- fim container imagens-->
+
+
+                          
+
+                      </div><!--fim carrosel tema-->
+                   </div><!-- fim carrosel-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="p-3  list-titles"><!-- Movies Recently added-->
+                <h2 class="h4"> 
+                    Latest Tamil</h2>
+                  </div><!-- fim Recently added-->
+
+                  <div class="carrosel-Animation d-flex flex-nowrap overflow-hidden"><!-- Movies carrosel-->
+                      <div class="owl-carousel owl-theme"><!--Movies carrosel tema-->
+
+
+                          <div class="container"> <!-- Movies container imagens-->
+                            <div class="box"> <!-- Movies box-->
+
+                              <div class="imgbox">   <!-- Movies imgbox-->
+                                <a href="#"><img src="img/banner-16.jpg" alt=""></a> 
+                              </div><!-- fim imgbox-->
+
+                               <div class="content"><!-- Movies content-->
+                                  <div>
+                                    <h2>The Last Naruto: O Filme</h2>
+                                    <p>
+                                       Hanabi Hyuuga, a irmã mais nova de Hinata, é sequestrada por Toneri Ootsutsuki. Naruto Uzumaki une forças para ajudar a irmã caçula de seu novo amor, mas suas habilidades são postas à prova quando perde sua forma mais poderosa.
+                                    </p>
+                                  </div>        
+                                </div><!-- fim content-->
+
+                            </div>  <!-- fim box-->   
+                          </div><!-- fim container imagens-->
+
+
+                          <div class="container"> <!-- Movies container imagens-->
+                            <div class="box"> <!-- Movies box-->
+
+                              <div class="imgbox">   <!-- Movies imgbox-->
+                                <a href="#"><img src="img/banner-16.jpg" alt=""></a> 
+                              </div><!-- fim imgbox-->
+
+                               <div class="content"><!-- Movies content-->
+                                  <div>
+                                    <h2>The Last Naruto: O Filme</h2>
+                                    <p>
+                                       Hanabi Hyuuga, a irmã mais nova de Hinata, é sequestrada por Toneri Ootsutsuki. Naruto Uzumaki une forças para ajudar a irmã caçula de seu novo amor, mas suas habilidades são postas à prova quando perde sua forma mais poderosa.
+                                    </p>
+                                  </div>        
+                                </div><!-- fim content-->
+
+                          </div>  <!-- fim box-->   
+                      </div><!-- fim container imagens-->
+              </div><!--fim carrosel tema-->
+            </div><!-- fim carrosel-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="p-3  list-titles"><!-- Movies Recently added-->
+              <h2 class="h4"> 
+                  Latest Bangla</h2>
+                </div><!-- fim Recently added-->
+
+                <div class="carrosel-Animation d-flex flex-nowrap overflow-hidden"><!-- Movies carrosel-->
+                    <div class="owl-carousel owl-theme"><!--Movies carrosel tema-->
+
+
+                        <div class="container"> <!-- Movies container imagens-->
+                          <div class="box"> <!-- Movies box-->
+
+                            <div class="imgbox">   <!-- Movies imgbox-->
+                              <a href="#"><img src="img/banner-16.jpg" alt=""></a> 
+                            </div><!-- fim imgbox-->
+
+                             <div class="content"><!-- Movies content-->
+                                <div>
+                                  <h2>The Last Naruto: O Filme</h2>
+                                  <p>
+                                     Hanabi Hyuuga, a irmã mais nova de Hinata, é sequestrada por Toneri Ootsutsuki. Naruto Uzumaki une forças para ajudar a irmã caçula de seu novo amor, mas suas habilidades são postas à prova quando perde sua forma mais poderosa.
+                                  </p>
+                                </div>        
+                              </div><!-- fim content-->
+
+                          </div>  <!-- fim box-->   
+                        </div><!-- fim container imagens-->
+
+
+                        <div class="container"> <!-- Movies container imagens-->
+                          <div class="box"> <!-- Movies box-->
+
+                            <div class="imgbox">   <!-- Movies imgbox-->
+                              <a href="#"><img src="img/banner-16.jpg" alt=""></a> 
+                            </div><!-- fim imgbox-->
+
+                             <div class="content"><!-- Movies content-->
+                                <div>
+                                  <h2>The Last Naruto: O Filme</h2>
+                                  <p>
+                                     Hanabi Hyuuga, a irmã mais nova de Hinata, é sequestrada por Toneri Ootsutsuki. Naruto Uzumaki une forças para ajudar a irmã caçula de seu novo amor, mas suas habilidades são postas à prova quando perde sua forma mais poderosa.
+                                  </p>
+                                </div>        
+                              </div><!-- fim content-->
+
+                        </div>  <!-- fim box-->   
+                    </div><!-- fim container imagens-->
+            </div><!--fim carrosel tema-->
+          </div><!-- fim carrosel-->   
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+          <div class="p-3  list-titles"><!-- Movies Recently added-->
+            <h2 class="h4"> 
+                Latest Series</h2>
+              </div><!-- fim Recently added-->
+
+              <div class="carrosel-Animation d-flex flex-nowrap overflow-hidden"><!-- Movies carrosel-->
+                  <div class="owl-carousel owl-theme"><!--Movies carrosel tema-->
+
+
+                      <div class="container"> <!-- Movies container imagens-->
+                        <div class="box"> <!-- Movies box-->
+
+                          <div class="imgbox">   <!-- Movies imgbox-->
+                            <a href="#"><img src="img/banner-16.jpg" alt=""></a> 
+                          </div><!-- fim imgbox-->
+
+                           <div class="content"><!-- Movies content-->
+                              <div>
+                                <h2>The Last Naruto: O Filme</h2>
+                                <p>
+                                   Hanabi Hyuuga, a irmã mais nova de Hinata, é sequestrada por Toneri Ootsutsuki. Naruto Uzumaki une forças para ajudar a irmã caçula de seu novo amor, mas suas habilidades são postas à prova quando perde sua forma mais poderosa.
+                                </p>
+                              </div>        
+                            </div><!-- fim content-->
+
+                        </div>  <!-- fim box-->   
+                      </div><!-- fim container imagens-->
+
+
+                      <div class="container"> <!-- Movies container imagens-->
+                        <div class="box"> <!-- Movies box-->
+
+                          <div class="imgbox">   <!-- Movies imgbox-->
+                            <a href="#"><img src="img/banner-16.jpg" alt=""></a> 
+                          </div><!-- fim imgbox-->
+
+                           <div class="content"><!-- Movies content-->
+                              <div>
+                                <h2>The Last Naruto: O Filme</h2>
+                                <p>
+                                   Hanabi Hyuuga, a irmã mais nova de Hinata, é sequestrada por Toneri Ootsutsuki. Naruto Uzumaki une forças para ajudar a irmã caçula de seu novo amor, mas suas habilidades são postas à prova quando perde sua forma mais poderosa.
+                                </p>
+                              </div>        
+                            </div><!-- fim content-->
+
+                      </div>  <!-- fim box-->   
+                  </div><!-- fim container imagens-->
+          </div><!--fim carrosel tema-->
+        </div><!-- fim carrosel-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+        
+        <footer class="row no-gutters p-4"> <!-- Movies footer -->
+
+           <a href="" class="col-12 col-md-3 text-reset">Termos de uso</a>
+           <a href="" class="col-12 col-md-3  text-reset">Declaração de privacidade</a>
+           <a href="" class="col-12 col-md-3  text-reset">Prefeência de conteúdo</a>
+           <a href="" class="col-12 col-md-3  text-reset">Centro de ajuda</a>
+            
+        </footer><!-- fim footer -->
+
+
+
+
+
+
+
+
+
+<!-- the modal section banner -->
+<section class="remodal" data-remodal-id="modal1">
+      <button data-remodal-action="close" class="remodal-close"></button>
+        <video id="video" class="video vjs-default-skin" controls autoplay width="480px" height="320px" poster="" data-setup="{}">
+          <source src="http://file.khulnaflix.net/Movies/Hollywood_Movie/2021/F9%20Tge%20Fast%20Saga%202021/F9%20The%20Fast%20Saga%20%282021%29%20720p%20AMZN-WEB%20x264%20AAC%205.1%20ESub%20-%20mkvCinemas.mkv">
+          
+          <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a web browser that
+            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+          </p>
+        </video>
+</section>
+
+<section class="remodal" data-remodal-id="modal2">
+  <button data-remodal-action="close" class="remodal-close"></button>
+    <video id="video" class="video vjs-default-skin" controls autoplay width="480px" height="320px" poster="" data-setup="{}">
+      <source src="http://file.khulnaflix.net/Movies/Hollywood_Movie/2021/THE%20SUICIDE%20SQUAD%20%282021%29%201080p/The.Suicide.Squad.2021.720p.HMAX.WEBRip.900MB.x264-GalaxyRG.mkv">
+      
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a web browser that
+        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+      </p>
+    </video>
+</section>
+
+
+<section class="remodal" data-remodal-id="modal3">   <button data-remodal-action="close" class="remodal-close"></button>     <video id="video" class="video vjs-default-skin" controls autoplay width="480px" height="360px" poster="" data-setup="{}">       <source src="http://103.153.175.254/NAS1/Movies/Hollywood%20Movies/2021%20-%20%28Hollywood%29/Notorious%20Nick%20%282021%29%20/Notorious.Nick.1080p.WEB-DL.DD5.1.H.264-EVO.mkv">         </video> </section>
+<section class="remodal" data-remodal-id="modal4">   <button data-remodal-action="close" class="remodal-close"></button>     <video id="video" class="video vjs-default-skin" controls autoplay width="480px" height="360px" poster="" data-setup="{}">       <source src="http://file.khulnaflix.net/Movies/Hollywood_Movie/2021/The%20Last%20Mercenary%202021/The%20Last%20Mercenary%20%282021%29%20720p%20NF-WEB%20x264%20MSubs%20%5BDual%20Audio%5D%5BHindi%205.1%2BEnglish%205.1%5D%20-mkvC.mkv">         </video> </section>
+<section class="remodal" data-remodal-id="modal5">   <button data-remodal-action="close" class="remodal-close"></button>     <video id="video" class="video vjs-default-skin" controls autoplay width="480px" height="360px" poster="" data-setup="{}">       <source src="http://file.khulnaflix.net/Movies/Hollywood_Movie/2021/Jungle.Cruise.2021.720p.DSNP.WEBRip.800MB.x264-GalaxyRG%5BTGx%5D/Jungle.Cruise.2021.720p.DSNP.WEBRip.800MB.x264-GalaxyRG.mkv">         </video> </section>
+<section class="remodal" data-remodal-id="modal6">   <button data-remodal-action="close" class="remodal-close"></button>     <video id="video" class="video vjs-default-skin" controls autoplay width="480px" height="360px" poster="" data-setup="{}">       <source src="http://file.khulnaflix.net/Movies/Hollywood_Movie/2021/F9%20Tge%20Fast%20Saga%202021/F9%20The%20Fast%20Saga%20%282021%29%20720p%20AMZN-WEB%20x264%20AAC%205.1%20ESub%20-%20mkvCinemas.mkv">         </video> </section>
+<section class="remodal" data-remodal-id="modal7">   <button data-remodal-action="close" class="remodal-close"></button>     <video id="video" class="video vjs-default-skin" controls autoplay width="480px" height="360px" poster="" data-setup="{}">       <source src="http://file.khulnaflix.net/Movies/Hollywood_Movie/2021/Midnight%20in%20the%20switchgrass%202021/Midnight%20in%20the%20Switchgrass%20%282021%29%201080p.BluRay.mkv">         </video> </section>
+<section class="remodal" data-remodal-id="modal8">   <button data-remodal-action="close" class="remodal-close"></button>     <video id="video" class="video vjs-default-skin" controls autoplay width="480px" height="360px" poster="" data-setup="{}">       <source src="http://file.khulnaflix.net/Movies/Hollywood_Movie/2021/Twist.2021.1080p.BluRay.1400MB.DD5.1.x264-GalaxyRG%5BTGx%5D/Twist.2021.1080p.BluRay.1400MB.DD5.1.x264-GalaxyRG.mkv">         </video> </section>
+<section class="remodal" data-remodal-id="modal9">   <button data-remodal-action="close" class="remodal-close"></button>     <video id="video" class="video vjs-default-skin" controls autoplay width="480px" height="360px" poster="" data-setup="{}">       <source src="http://file.khulnaflix.net/Movies/Hollywood_Movie/2021/Gunpowder.Milkshake.2021.1080p.NF.WEB-DL.DDP5.1.Atmos.x264-EVO%5BTGx%5D/Gunpowder.Milkshake.2021.1080p.NF.WEB-DL.DDP5.1.Atmos.x264-EVO.mkv">         </video> </section>
+<section class="remodal" data-remodal-id="modal10">   <button data-remodal-action="close" class="remodal-close"></button>     <video id="video" class="video vjs-default-skin" controls autoplay width="480px" height="360px" poster="" data-setup="{}">       <source src="http://file.khulnaflix.net/Movies/Hollywood_Movie/2021/%20Black%20Widow%202021%20%281080P%29/Black%20Widow%202021%201080P%20DSNP%20WEBRiP%20x265%20DD%205.1%20HEVC%20%20ESUB%20%5Bshadow%5D.mkv">         </video> </section>
+<section class="remodal" data-remodal-id="modal11">   <button data-remodal-action="close" class="remodal-close"></button>     <video id="video" class="video vjs-default-skin" controls autoplay width="480px" height="360px" poster="" data-setup="{}">       <source src="http://file.khulnaflix.net/Movies/Hollywood_Movie/2021/The.Tomorrow.War.2021.1080P/The.Tomorrow.War.2021.1080P.Amzn.WEBRiP.Ddp5.1.H.265-%5Bshadow%5D.mkv">         </video> </section>
+<section class="remodal" data-remodal-id="modal12">   <button data-remodal-action="close" class="remodal-close"></button>     <video id="video" class="video vjs-default-skin" controls autoplay width="480px" height="360px" poster="" data-setup="{}">       <source src="http://file.khulnaflix.net/Movies/Hollywood_Movie/2021/The.Conjuring.The.Devil.Made.Me.Do.It.2021.1080p/The.Conjuring.The.Devil.Made.Me.Do.It.2021.1080p.HMAX.WEBRip%2CHEVC.x265.AAC.6CH.~%20_%5BTasin%5D_.mkv">         </video> </section>
+<section class="remodal" data-remodal-id="modal13">   <button data-remodal-action="close" class="remodal-close"></button>     <video id="video" class="video vjs-default-skin" controls autoplay width="480px" height="360px" poster="" data-setup="{}">       <source src="http://file.khulnaflix.net/Movies/Hollywood_Movie/2021/Army.of.the.Dead.2021.1080p/Army.of.the.Dead.2021.1080p.NF.WEBRip.HEVC.x265.DDP5.1.MSubs%20~%20_%5BTasin%5D_..mkv">         </video> </section>
+
+
+
+
+
+
+
+
+ 
+
+   <script src="js/java.js"></script>  
+      
+       <!-- JavaScript (Opcional) -->
+    <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
+      <script src="asset/js/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="asset/js/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="asset/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+      <script src="js/owl/jquery.min.js"></script>
+    <script src="js/owl/owl.carousel.min.js"></script>
+    <script src="js/owl/setup.js"></script>
+    </body>
+
+
+
+
+
+
+    <!----vbideo scripts-->
+    <script src="asset/hover/jquery.hoverplay.js"></script>
+    <script src="asset/js/jquery-3.3.1.slim.min.js" 
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+        crossorigin="anonymous">
+    </script>
+
+
+
+    <script src="asset/js/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous">
+    </script>
+
+    <script src="asset/js/remodal.min.js"></script>
+
+</html>

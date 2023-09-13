@@ -1,0 +1,126 @@
+<html>
+
+<head>
+
+<script>
+
+{
+
+ 
+
+function readCookie(name)
+
+{
+
+var nameEQ = name + "=";
+
+var ca = document.cookie.split(';');
+
+for(var i=0;i < ca.length;i++)
+
+{
+
+var c = ca[i];
+
+while (c.charAt(0)=='') c = c.substring(1,c.length);
+
+if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+
+}
+
+return null;
+
+}
+
+var cookieval = readCookie('url');
+
+if (cookieval.length>0) document.write("<meta http-equiv=\"refresh\" content=\"2;url=http://"+cookieval+"\""+">");
+
+}
+
+</script>
+
+<title>Go Wi-FiPortal Login</title>
+
+ 
+
+<link href="default1/styles.css" rel="stylesheet" media="screen"    type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS"/>
+
+<link href="/auth/default1/styles.css" rel="stylesheet" media="screen" type="text/css" />
+
+<script language="javascript" type="text/javascript">
+
+   function showPolicy() {
+
+      win = window.open("/auth/acceptableusepolicy.html",       "policy", "height=550,width=550,scrollbars=1");
+
+   }
+
+</script>
+
+</head>
+
+<BODY>
+
+<header>
+<img src="/auth/default1/logo.gif"/>
+<header>
+
+
+
+
+
+<div id="errorbox" style="display: none;">
+
+</div>
+
+
+
+
+
+
+<FORM method="post" autocomplete="off" ACTION="/auth/index.html/u">
+
+ 
+
+Username:<BR>
+
+<INPUT type="text" name="user" accesskey="u" SIZE="25" VALUE="">
+
+<BR>
+
+ 
+
+Password:<BR>
+
+<INPUT type="password" name="password" accesskey="p" SIZE="25"
+
+VALUE="">
+
+<BR>
+
+ 
+
+<INPUT type="submit">
+
+</FORM>
+
+</BODY>
+
+
+
+
+
+ <script src="script.js"></script>
+
+
+
+
+
+
+
+
+
+
+</HTML>

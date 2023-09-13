@@ -1,0 +1,9 @@
+2023-08-18T18:12:47+00:00 CRITICAL Uncaught Error: Call to undefined method CTXFeed\V5\Common\Helper::is_debugging_enabled() in /home/ronibd0/goisp.net/shop/wp-content/plugins/webappick-product-feed-for-woocommerce/includes/cron-helper.php:87
+Stack trace:
+#0 /home/ronibd0/goisp.net/shop/wp-includes/class-wp-hook.php(310): woo_feed_cron_update_single_feed()
+#1 /home/ronibd0/goisp.net/shop/wp-includes/class-wp-hook.php(334): WP_Hook->apply_filters()
+#2 /home/ronibd0/goisp.net/shop/wp-includes/plugin.php(565): WP_Hook->do_action()
+#3 /home/ronibd0/goisp.net/shop/wp-cron.php(191): do_action_ref_array()
+#4 {main}
+  thrown in /home/ronibd0/goisp.net/shop/wp-content/plugins/webappick-product-feed-for-woocommerce/includes/cron-helper.php on line 87
+
